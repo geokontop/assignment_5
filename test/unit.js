@@ -21,7 +21,9 @@ unit['helpers.getRandomInt(2) should return integer 0 or 1'] = (done)=>{
 
 // Assert that helpers.getRandomArbitrary(-1,1)  returns a number between -1 and 1.
 unit['helpers.getRandomArbitrary(-1,1) should return a number between -1 and 1'] = (done)=>{    
+    // Sample inputs
     const val = helpers.getRandomArbitrary(-1,1);
+
     assert.equal(typeof(val), 'number');
     assert.ok(val>=-1 && val<=1);
     done();
@@ -29,6 +31,7 @@ unit['helpers.getRandomArbitrary(-1,1) should return a number between -1 and 1']
 
 // For the appropriate inputs, assert that the ann.neuronSigmoidActivation function returns a number
 unit['ann.neuronSigmoidActivation should return a number'] = (done)=>{    
+    // Sample inputs
     const inputWeights = [ helpers.getRandomArbitrary(-1,1), helpers.getRandomArbitrary(-1,1) ]
     const inputValues = [ helpers.getRandomInt(2), helpers.getRandomInt(2) ]
     const threshold =  helpers.getRandomArbitrary(-1,1)
@@ -40,6 +43,7 @@ unit['ann.neuronSigmoidActivation should return a number'] = (done)=>{
 
 // Sigmoid activation function test. For the appropriate inputs, assert that the ann.neuronSigmoidActivation function returns 0.8808
 unit['ann.neuronSigmoidActivation should return 0.8808 for specific input values. '] = (done)=>{    
+    // Sample inputs
     const inputWeights = [ 0.9, 1 ]
     const inputValues = [ 1, 1 ]
     const threshold =  -0.1
@@ -51,6 +55,7 @@ unit['ann.neuronSigmoidActivation should return 0.8808 for specific input values
 
 // ann.neuronSigmoidActivation should not throuh  when threshold is not a number
 unit['ann.neuronSigmoidActivation should not throuh  when threshold is not a number.'] = (done)=>{    
+    // Sample inputs
     const inputWeights = [ 0.9, 1 ]
     const inputValues = [ 1, 1 ]
     const threshold =  'a'
@@ -64,6 +69,7 @@ unit['ann.neuronSigmoidActivation should not throuh  when threshold is not a num
 
 // ann.neuronSigmoidActivation should not throuh  when some input is not a number
 unit['ann.neuronSigmoidActivation should not throuh  when some input is not a number.'] = (done)=>{    
+    // Sample inputs
     const inputWeights = [ 0.9, 1 ]
     const inputValues = [ 1, 'a' ]
     const threshold =  0.5
@@ -77,6 +83,7 @@ unit['ann.neuronSigmoidActivation should not throuh  when some input is not a nu
 
 // ann.neuronSigmoidActivation should not throuh  when some weight is not a number
 unit['ann.neuronSigmoidActivation should not throuh  when some weight is not a number.'] = (done)=>{    
+    // Sample 
     const inputWeights = [ 0.9, 'a' ]
     const inputValues = [ 1, 0 ]
     const threshold =  0.5
@@ -91,8 +98,10 @@ unit['ann.neuronSigmoidActivation should not throuh  when some weight is not a n
 // Assert that ann.initializeNetwork should not throw when passing non integer values
 unit['ann.initializeNetwork should not throw when passing non integer values'] = (done)=>{
 
+    //Sample
     // Number of neurons per layer should be an integer but it isn't
     const neurons = [5,4.5,3,2]
+
     assert.doesNotThrow(()=>{
         const val = ann.initializeNetwork(neurons);
         assert.equal(val,false)
@@ -139,6 +148,7 @@ unit['ann.initializeNetwork should return an array with specific elements length
 // Assert that ann.activate should not throw when passing a state that is not an array
 unit['ann.activate should not throw when passing a state that is not an array'] = (done)=>{
 
+    // State should be an array but it is not
     const state = {"weights":[[4.0623,4.0627],[5.6901,5.6901]],"threshold":[6.1473,2.4384]}
         
     assert.doesNotThrow(()=>{
@@ -151,11 +161,13 @@ unit['ann.activate should not throw when passing a state that is not an array'] 
 // Assert that ann.activate should not throw when passing invalid network input
 unit['ann.activate should not throw when passing invalid network input'] = (done)=>{
 
+    // state is ok
     const state = [
         {"weights":[[4.0623,4.0627],[5.6901,5.6901]],"threshold":[6.1473,2.4384]},
         {"weights":[[-8.5232,7.9173]],"threshold":[3.5695]}
     ]
 
+    // Passing a character 'a' as numeric input. That is not ok
     assert.doesNotThrow(()=>{
         const val = ann.activate(state,[1,'a'],[0])
         assert.equal(val,false)
@@ -166,13 +178,20 @@ unit['ann.activate should not throw when passing invalid network input'] = (done
 // Assert that ann.activate should not throw when passing a non-array as desired output
 unit['ann.activate should not throw when passing invalid network a non-array as desired output'] = (done)=>{
 
+    // state is ok
     const state = [
         {"weights":[[4.0623,4.0627],[5.6901,5.6901]],"threshold":[6.1473,2.4384]},
         {"weights":[[-8.5232,7.9173]],"threshold":[3.5695]}
     ]
 
+    // inputs is ok
+    const inputs = [1,1];
+
+    // Passing 0 as required output is not ok. It should be an array, e.g. [0]
+    const requiredOutputs = 0;
+
     assert.doesNotThrow(()=>{
-        const val = ann.activate(state,[1,1],0)
+        const val = ann.activate(state,inputs,requiredOutputs)
         assert.equal(val,false)
         done();
     },TypeError)
@@ -473,6 +492,7 @@ unit['ann.epoch should not throw when initial state is not an array'] = (done)=>
 // Assert that ann.train should not throw when epochs is not integer
 unit['ann.train should not throw when epochs is not an integer'] = (done)=>{
  
+    // Sample
     const initialState = [
         { 'weights':[[.5,.4],[.9,1]], 'threshold':[.8,-.1]}, // hidden layer
         { 'weights':[[-1.2,1.1]], 'threshold':[.3]}     // outputs layer

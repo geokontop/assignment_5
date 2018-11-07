@@ -1,4 +1,7 @@
-
+/*
+ * Application helper functions
+ * 
+ */
 
 // Container
 const helpers= {}
