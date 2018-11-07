@@ -27,6 +27,7 @@ directories /test , /app, /serve
     - ann.train response should be well formed
     
 1. The api test in api.js
+Quite minimal here.
     - app.init should start without throwing
     - http /ping should respond with 200
     - http /ann should respond with 200
@@ -50,3 +51,5 @@ Some application related functionality. The application assumption is about trai
 
 ## Inside /serve
 The usual server functionality. 
+
+ 
